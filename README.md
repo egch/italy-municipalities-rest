@@ -19,3 +19,6 @@ $ mvn clean package
  $ mvn spring-boot:run
 
 ```
+
+## Services
+- full list of municipalities: http://localhost:8080/municipalities
