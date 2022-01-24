@@ -1,6 +1,9 @@
-package org.enricogiurin.poc.italymunicipalities;
+package org.enricogiurin.poc.italymunicipalities.config;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.enricogiurin.poc.italymunicipalities.dto.Municipality;
+import org.enricogiurin.poc.italymunicipalities.util.Mapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,29 +13,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class BeansFactory {
+
     private static final String PATH = "data/Elenco-comuni-italiani.csv";
+    private final Mapper mapper;
 
     @Bean()
     @Qualifier("municipalities")
-    public List<String> read() throws IOException {
+    public List<Municipality> list() throws IOException {
         InputStream is = getClass().getClassLoader().getResourceAsStream(PATH);
         Reader reader = new InputStreamReader(is);
-        List<String> records = new ArrayList<>();
+        List<Municipality> records = new LinkedList<>();
         try (BufferedReader br = new BufferedReader(reader);) {
             String line;
             while ((line = br.readLine()) != null) {
-                String municipalityName = line.split(";")[5];
-                records.add(municipalityName);
+                Municipality municipality = mapper.stringToMunicipality(line);
+                records.add(municipality);
             }
         }
         records.remove(0);
-        records.sort(null);
+        records.sort((m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName()));
         log.info("List of municipalities loaded from the file: {}", PATH);
         return records;
     }
