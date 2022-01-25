@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class Mapper {
     private static final String FIELD_SEPARATOR = ";";
 
+    private static final int CODE_POS = 4;
     private static final int NAME_POS = 5;
     private static final int REGION_POS = 10;
     private static final int PROVINCE_POS = 11;
@@ -14,6 +15,7 @@ public class Mapper {
     public Municipality stringToMunicipality(String line) {
         String[] fields = line.split(FIELD_SEPARATOR);
         return Municipality.builder()
+                .code(fields[CODE_POS])
                 .name(fields[NAME_POS])
                 .province(fields[PROVINCE_POS])
                 .region(fields[REGION_POS])

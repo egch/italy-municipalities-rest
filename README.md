@@ -28,3 +28,4 @@ $ mvn clean package
 ## Services
 
 - full list of municipalities: http://localhost:8080/municipality
+- single municipality: http://localhost:8080/municipality/{code}

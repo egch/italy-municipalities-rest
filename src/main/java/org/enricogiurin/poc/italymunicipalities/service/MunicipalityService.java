@@ -14,4 +14,11 @@ public class MunicipalityService {
     public List<Municipality> findAll() {
         return municipalities;
     }
+
+    public Municipality findByCode(String code){
+        return municipalities.stream()
+                .filter(municipality -> municipality.getCode().equalsIgnoreCase(code))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No municipality found having code: "+code));
+    }
 }
