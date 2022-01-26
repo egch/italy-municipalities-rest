@@ -3,8 +3,8 @@ package org.enricogiurin.poc.italymunicipalities.service;
 import org.enricogiurin.poc.italymunicipalities.dto.Municipality;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -22,10 +22,10 @@ class MunicipalityServiceTest {
     @Test
     void findAll() {
         //when
-        List<Municipality> all = municipalityService.findAll();
+        Page<Municipality> list = municipalityService.list(Pageable.ofSize(2));
         //then
-        assertThat(all).isNotNull();
-        assertThat(all).hasSize(2);
+        assertThat(list).isNotNull();
+        assertThat(list).hasSize(2);
     }
 
     @Test

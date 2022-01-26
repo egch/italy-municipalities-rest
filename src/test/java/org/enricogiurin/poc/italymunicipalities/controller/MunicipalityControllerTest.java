@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -13,6 +15,7 @@ import javax.annotation.Resource;
 
 import static org.enricogiurin.poc.italymunicipalities.TestUtilities.buildList;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,23 +38,23 @@ class MunicipalityControllerTest {
     @Test
     void list() throws Exception {
         //given
-        when(municipalityService.findAll())
-                .thenReturn(buildList());
+        when(municipalityService.list(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(buildList()));
 
         //when-then
         mockMvc.perform(get(URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].code").value("1"))
-                .andExpect(jsonPath("$[0].name").value("Spinea"))
-                .andExpect(jsonPath("$[0].province").value("Venezia"))
-                .andExpect(jsonPath("$[0].region").value("Veneto"))
-                .andExpect(jsonPath("$[1].code").value("2"))
-                .andExpect(jsonPath("$[1].name").value("San Bonifacio"))
-                .andExpect(jsonPath("$[1].province").value("Verona"))
-                .andExpect(jsonPath("$[1].region").value("Veneto"));
-        verify(municipalityService).findAll();
+                .andExpect(jsonPath("$.content", hasSize(2)))
+                .andExpect(jsonPath("$.content[0].code").value("1"))
+                .andExpect(jsonPath("$.content[0].name").value("Spinea"))
+                .andExpect(jsonPath("$.content[0].province").value("Venezia"))
+                .andExpect(jsonPath("$.content[0].region").value("Veneto"))
+                .andExpect(jsonPath("$.content[1].code").value("2"))
+                .andExpect(jsonPath("$.content[1].name").value("San Bonifacio"))
+                .andExpect(jsonPath("$.content[1].province").value("Verona"))
+                .andExpect(jsonPath("$.content[1].region").value("Veneto"));
+        verify(municipalityService).list(any(Pageable.class));
     }
 
 
