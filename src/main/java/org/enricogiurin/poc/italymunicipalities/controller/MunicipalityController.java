@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,8 +28,8 @@ public class MunicipalityController {
             method = {RequestMethod.GET},
             produces = "application/json"
     )
-    public ResponseEntity<Page<Municipality>> list(Pageable pageable) {
-        Page<Municipality> list = municipalityService.list(pageable);
+    public ResponseEntity<Page<Municipality>> list(Pageable pageable, @RequestParam(name = "name", required = false) String name) {
+        Page<Municipality> list = municipalityService.list(pageable, name);
         return ResponseEntity.ok(list);
     }
 

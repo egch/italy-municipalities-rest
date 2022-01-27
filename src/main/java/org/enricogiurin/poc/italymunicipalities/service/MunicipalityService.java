@@ -9,17 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class MunicipalityService {
     private final List<Municipality> municipalities;
 
-    public Municipality findByCode(String code){
+    public Municipality findByCode(String code) {
         return municipalities.stream()
                 .filter(municipality -> municipality.getCode().equalsIgnoreCase(code))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No municipality found having code: "+code));
+                .orElseThrow(() -> new IllegalArgumentException("No municipality found having code: " + code));
     }
 
     /**
@@ -28,10 +29,14 @@ public class MunicipalityService {
      * @param pageable
      * @return
      */
-    public Page<Municipality> list(Pageable pageable) {
-        int skipCount = (pageable.getPageNumber() - 1) * pageable.getPageSize();
-        List<Municipality> list = municipalities
-                .stream()
+    public Page<Municipality> list(Pageable pageable, String... name) {
+        int skipCount = (pageable.getPageNumber()) * pageable.getPageSize();
+        Stream<Municipality> stream = municipalities
+                .stream();
+        if (name.length > 0 && name[0] != null) {
+            stream = stream.filter(municipality -> municipality.getName().contains(name[0]));
+        }
+        List<Municipality> list = stream
                 .skip(skipCount)
                 .limit(pageable.getPageSize())
                 .collect(Collectors.toList());
