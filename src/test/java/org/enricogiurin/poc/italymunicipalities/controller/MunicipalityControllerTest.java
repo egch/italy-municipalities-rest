@@ -38,11 +38,12 @@ class MunicipalityControllerTest {
     @Test
     void list() throws Exception {
         //given
-        when(municipalityService.list(any(Pageable.class)))
-                .thenReturn(new PageImpl<>(buildList()));
+        PageImpl<Municipality> page = new PageImpl<>(buildList());
+        when(municipalityService.list(any(Pageable.class), any(String.class)))
+                .thenReturn(page);
 
         //when-then
-        mockMvc.perform(get(URL))
+        mockMvc.perform(get(URL).param("name", "a"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.content", hasSize(2)))
@@ -54,7 +55,7 @@ class MunicipalityControllerTest {
                 .andExpect(jsonPath("$.content[1].name").value("San Bonifacio"))
                 .andExpect(jsonPath("$.content[1].province").value("Verona"))
                 .andExpect(jsonPath("$.content[1].region").value("Veneto"));
-        verify(municipalityService).list(any(Pageable.class));
+        verify(municipalityService).list(any(Pageable.class), any(String.class));
     }
 
 

@@ -29,8 +29,8 @@ public class MunicipalityController {
             produces = "application/json"
     )
     public ResponseEntity<Page<Municipality>> list(Pageable pageable, @RequestParam(name = "name", required = false) String name) {
-        Page<Municipality> list = municipalityService.list(pageable, name);
-        return ResponseEntity.ok(list);
+        Page<Municipality> page = municipalityService.list(pageable, name);
+        return ResponseEntity.ok(page);
     }
 
     @RequestMapping(
