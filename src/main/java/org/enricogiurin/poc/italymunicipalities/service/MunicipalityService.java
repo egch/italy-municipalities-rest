@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,20 +27,31 @@ public class MunicipalityService {
     /**
      * Pagination service.
      * Thanks to  @see <a href="https://careydevelopment.us/blog/java-streams-how-to-implement-pagination-with-skip-and-limit">careydevelopment</a>
+     *
      * @param pageable
      * @return
      */
     public Page<Municipality> list(Pageable pageable, String... name) {
-        int skipCount = (pageable.getPageNumber()) * pageable.getPageSize();
-        Stream<Municipality> stream = municipalities
-                .stream();
-        if (name.length > 0 && name[0] != null) {
-            stream = stream.filter(municipality -> municipality.getName().contains(name[0]));
-        }
-        List<Municipality> list = stream
+        final int skipCount = (pageable.getPageNumber()) * pageable.getPageSize();
+        final Supplier<Stream<Municipality>> streamSupplier = buildSupplier(name);
+        final List<Municipality> list = streamSupplier.get()
                 .skip(skipCount)
                 .limit(pageable.getPageSize())
                 .collect(Collectors.toList());
-        return new PageImpl<>(list, pageable, municipalities.size());
+        final int totPages = (int) streamSupplier.get().count();
+        return new PageImpl<>(list, pageable, totPages);
+    }
+
+    private Supplier<Stream<Municipality>> buildSupplier(String... name) {
+        return () -> {
+            if (name.length > 0 && name[0] != null) {
+                return municipalities
+                        .stream().filter(municipality -> municipality
+                                .getName().toLowerCase().contains(name[0].toLowerCase()));
+            } else {
+                return municipalities
+                        .stream();
+            }
+        };
     }
 }
