@@ -3,6 +3,7 @@ package org.enricogiurin.poc.italymunicipalities.controller;
 import org.enricogiurin.poc.italymunicipalities.dto.Municipality;
 import org.enricogiurin.poc.italymunicipalities.service.MunicipalityService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -10,8 +11,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-
-import javax.annotation.Resource;
 
 import static org.enricogiurin.poc.italymunicipalities.TestUtilities.buildList;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -29,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class MunicipalityControllerTest {
     public static final String URL = "/municipality";
 
-    @Resource
+    @Autowired
     private MockMvc mockMvc;
 
     @MockBean

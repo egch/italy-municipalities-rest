@@ -29,6 +29,15 @@ class MunicipalityServiceTest {
     }
 
     @Test
+    void findAll_name() {
+        //when
+        Page<Municipality> list = municipalityService.list(Pageable.ofSize(2), "Sp");
+        //then
+        assertThat(list).isNotNull();
+        assertThat(list).hasSize(1);
+    }
+
+    @Test
     void findByCode() {
         //when
         Municipality spinea = municipalityService.findByCode("1");
