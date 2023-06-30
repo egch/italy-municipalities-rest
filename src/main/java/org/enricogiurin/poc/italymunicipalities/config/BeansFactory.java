@@ -27,10 +27,10 @@ public class BeansFactory {
     @Bean()
     @Qualifier("municipalities")
     public List<Municipality> list() throws IOException {
-        InputStream is = getClass().getClassLoader().getResourceAsStream(PATH);
-        Reader reader = new InputStreamReader(is);
         List<Municipality> records = new LinkedList<>();
-        try (BufferedReader br = new BufferedReader(reader);) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(PATH);
+             Reader reader = new InputStreamReader(is);
+             BufferedReader br = new BufferedReader(reader)) {
             String line;
             while ((line = br.readLine()) != null) {
                 Municipality municipality = mapper.stringToMunicipality(line);
