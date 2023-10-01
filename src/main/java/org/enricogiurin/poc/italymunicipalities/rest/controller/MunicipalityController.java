@@ -39,13 +39,7 @@ public class MunicipalityController {
             value = "/{code}"
     )
     public ResponseEntity<Municipality> get(@PathVariable String code) {
-        Municipality municipality;
-        try {
-            municipality = municipalityService.findByCode(code);
-        } catch (IllegalArgumentException e) {
-            log.warn(e.toString(), e);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Municipality municipality = municipalityService.findByCode(code);
         return new ResponseEntity<>(municipality, HttpStatus.OK);
     }
 
