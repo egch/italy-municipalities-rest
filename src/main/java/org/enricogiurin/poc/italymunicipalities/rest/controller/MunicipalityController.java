@@ -1,4 +1,4 @@
-package org.enricogiurin.poc.italymunicipalities.controller;
+package org.enricogiurin.poc.italymunicipalities.rest.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

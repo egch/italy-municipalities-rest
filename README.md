@@ -25,6 +25,10 @@ $ mvn clean package
 
 ```
 
+## Swagger
+
+http://localhost:8080/swagger-ui/index.html
+
 ## Services
 
 - full list of municipalities: http://localhost:8080/municipality

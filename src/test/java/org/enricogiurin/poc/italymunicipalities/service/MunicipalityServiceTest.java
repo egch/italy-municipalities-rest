@@ -1,6 +1,7 @@
 package org.enricogiurin.poc.italymunicipalities.service;
 
 import org.enricogiurin.poc.italymunicipalities.dto.Municipality;
+import org.enricogiurin.poc.italymunicipalities.exception.DataNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -43,12 +44,12 @@ class MunicipalityServiceTest {
         Municipality spinea = municipalityService.findByCode("1");
         //then
         assertThat(spinea).isNotNull();
-        assertThat(spinea.getName()).isEqualTo("Spinea");
+        assertThat(spinea.name()).isEqualTo("Spinea");
     }
 
     @Test
     void findByCode_NotFound() {
-        assertThatThrownBy(() -> municipalityService.findByCode("xxx")).isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() -> municipalityService.findByCode("xxx")).isInstanceOf(DataNotFoundException.class)
                 .hasMessageContaining("xxx");
     }
 

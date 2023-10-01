@@ -1,4 +1,4 @@
-package org.enricogiurin.poc.italymunicipalities.controller;
+package org.enricogiurin.poc.italymunicipalities.rest.controller;
 
 import org.enricogiurin.poc.italymunicipalities.dto.Municipality;
 import org.enricogiurin.poc.italymunicipalities.service.MunicipalityService;

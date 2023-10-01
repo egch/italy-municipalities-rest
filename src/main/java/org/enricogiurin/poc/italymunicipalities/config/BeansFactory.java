@@ -38,7 +38,7 @@ public class BeansFactory {
             }
         }
         records.remove(0);
-        records.sort((m1, m2) -> m1.getName().compareToIgnoreCase(m2.getName()));
+        records.sort((m1, m2) -> m1.name().compareToIgnoreCase(m2.name()));
         log.info("List of municipalities loaded from the file: {}", PATH);
         return records;
     }
