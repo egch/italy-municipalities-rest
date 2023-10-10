@@ -2,6 +2,7 @@ package org.enricogiurin.poc.italymunicipalities.service;
 
 import lombok.RequiredArgsConstructor;
 import org.enricogiurin.poc.italymunicipalities.dto.Municipality;
+import org.enricogiurin.poc.italymunicipalities.exception.DataNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +20,9 @@ public class MunicipalityService {
 
     public Municipality findByCode(String code) {
         return municipalities.stream()
-                .filter(municipality -> municipality.getCode().equalsIgnoreCase(code))
+                .filter(municipality -> municipality.code().equalsIgnoreCase(code))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No municipality found having code: " + code));
+                .orElseThrow(() -> new DataNotFoundException("No municipality found having code: " + code));
     }
 
     /**
@@ -47,7 +48,7 @@ public class MunicipalityService {
             if (name.length > 0 && name[0] != null) {
                 return municipalities
                         .stream().filter(municipality -> municipality
-                                .getName().toLowerCase().contains(name[0].toLowerCase()));
+                                .name().toLowerCase().contains(name[0].toLowerCase()));
             } else {
                 return municipalities
                         .stream();

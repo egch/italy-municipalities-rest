@@ -22,8 +22,8 @@ class MapperTest {
 
         //then
         assertThat(spinea).isNotNull();
-        assertThat(spinea.getName()).isEqualTo("Spinea");
-        assertThat(spinea.getProvince()).isEqualTo("Venezia");
-        assertThat(spinea.getRegion()).isEqualTo("Veneto");
+        assertThat(spinea.name()).isEqualTo("Spinea");
+        assertThat(spinea.province()).isEqualTo("Venezia");
+        assertThat(spinea.region()).isEqualTo("Veneto");
     }
 }
