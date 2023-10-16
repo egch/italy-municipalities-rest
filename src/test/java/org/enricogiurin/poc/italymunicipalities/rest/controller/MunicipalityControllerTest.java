@@ -72,7 +72,7 @@ class MunicipalityControllerTest {
         //when-then
         mockMvc.perform(get(URL+"/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"));
+                .andExpect(content().contentType("application/json"));
         verify(municipalityService).findByCode("1");
     }
 

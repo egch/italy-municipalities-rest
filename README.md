@@ -34,3 +34,21 @@ http://localhost:8080/swagger-ui/index.html
 - full list of municipalities: http://localhost:8080/municipality
 - list with pagination: http://localhost:8080/municipality?page={page}&size={size}
 - single municipality: http://localhost:8080/municipality/{code}
+## Docker
+Building the image
+```shell
+$ docker build -t italy-municipalities-rest .
+```
+Running docker container
+```shell
+$ docker run -p 8080:8080 italy-municipalities-rest
+```
+
+### Pushing to docker hub
+Assuming _xyz_ is your docker hub username.
+```shell
+ $ docker login --username=xyz
+ $ docker tag italy-municipalities-rest xyz/italy-municipalities-rest:0.0.2
+ $ docker push xyz/italy-municipalities-rest:0.0.2
+
+```

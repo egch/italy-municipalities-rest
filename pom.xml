@@ -55,6 +55,7 @@
     </dependencies>
 
     <build>
+        <finalName>italy-municipalities-rest</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
