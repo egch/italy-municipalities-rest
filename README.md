@@ -43,3 +43,12 @@ Running docker container
 ```shell
 $ docker run -p 8080:8080 italy-municipalities-rest
 ```
+
+### Pushing to docker hub
+Assuming _xyz_ is your docker hub username.
+```shell
+ $ docker login --username=xyz
+ $ docker tag italy-municipalities-rest xyz/italy-municipalities-rest:0.0.2
+ $ docker push xyz/italy-municipalities-rest:0.0.2
+
+```
