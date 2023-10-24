@@ -1,8 +1,9 @@
 package org.enricogiurin.poc.italymunicipalities.rest.controller;
 
 import org.enricogiurin.poc.italymunicipalities.dto.Municipality;
+import org.enricogiurin.poc.italymunicipalities.exception.DataNotFoundException;
+import org.enricogiurin.poc.italymunicipalities.rest.aop.RestAdvice;
 import org.enricogiurin.poc.italymunicipalities.service.MunicipalityService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {MunicipalityController.class})
+@ContextConfiguration(classes = {MunicipalityController.class, RestAdvice.class})
 class MunicipalityControllerTest {
     public static final String URL = "/municipality";
 
@@ -70,27 +71,22 @@ class MunicipalityControllerTest {
 
 
         //when-then
-        mockMvc.perform(get(URL+"/1"))
+        mockMvc.perform(get(URL + "/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"));
         verify(municipalityService).findByCode("1");
     }
 
-    //TODO - fix it
-    @Disabled
     @Test
     void findByCode_404() throws Exception {
         //given
         when(municipalityService.findByCode("xxx"))
-                .thenThrow(new IllegalArgumentException("Invalid code"));
-
-
+                .thenThrow(new DataNotFoundException("Invalid code"));
         //when-then
-        mockMvc.perform(get(URL+"/xxx"))
+        mockMvc.perform(get(URL + "/xxx"))
                 .andExpect(status().is4xxClientError());
         verify(municipalityService).findByCode("xxx");
     }
-
 
 
 }

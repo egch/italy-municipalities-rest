@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -29,7 +29,7 @@ class BeansFactory {
     @Bean()
     @Qualifier("municipalities")
     List<Municipality> list() throws IOException {
-        List<Municipality> records = new LinkedList<>();
+        List<Municipality> records = new ArrayList<>();
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(PATH);
              Reader reader = new InputStreamReader(is, StandardCharsets.ISO_8859_1);
              BufferedReader br = new BufferedReader(reader)) {
@@ -39,7 +39,6 @@ class BeansFactory {
                 records.add(municipality);
             }
         }
-        records.remove(0);
         records.sort((m1, m2) -> m1.name().compareToIgnoreCase(m2.name()));
         log.info("List of municipalities loaded from the file: {}", PATH);
         return records;

@@ -48,7 +48,7 @@ $ docker run -p 8080:8080 italy-municipalities-rest
 Assuming _xyz_ is your docker hub username.
 ```shell
  $ docker login --username=xyz
- $ docker tag italy-municipalities-rest xyz/italy-municipalities-rest:0.0.2
- $ docker push xyz/italy-municipalities-rest:0.0.2
+ $ docker tag italy-municipalities-rest xyz/italy-municipalities-rest:0.0.3
+ $ docker push xyz/italy-municipalities-rest:0.0.3
 
 ```

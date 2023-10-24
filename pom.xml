@@ -10,12 +10,12 @@
     </parent>
     <groupId>org.enricogiurin.poc</groupId>
     <artifactId>italy-municipalities-rest</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>Italy Municipalities Rest</name>
     <description>Italy Municipalities Rest</description>
     <properties>
         <java.version>19</java.version>
-        <springdoc-openapi.version>2.0.3</springdoc-openapi.version>
+        <springdoc-openapi.version>2.0.4</springdoc-openapi.version>
     </properties>
     <dependencies>
 
