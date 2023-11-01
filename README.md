@@ -43,6 +43,10 @@ Running docker container
 ```shell
 $ docker run -p 8080:8080 italy-municipalities-rest
 ```
+If pulled from the docker hub:
+```shell
+$ docker run -p 8080:8080 xyz/italy-municipalities-rest:0.0.3
+```
 
 ### Pushing to docker hub
 Assuming _xyz_ is your docker hub username.
